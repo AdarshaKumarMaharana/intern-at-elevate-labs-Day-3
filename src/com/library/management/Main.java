@@ -1,31 +1,66 @@
 package com.library.management;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         Library library = new Library();
+        Scanner sc = new Scanner(System.in);
 
-        // Create books
-        Book book1 = new Book("Java Basics", "James Gosling");
-        Book book2 = new Book("OOP Concepts", "Grady Booch");
+        System.out.println("Welcome to the Library Management System");
 
-        // Add books to library
-        library.addBook(book1);
-        library.addBook(book2);
+        while (true) {
+            System.out.println("\n1. Add Book");
+            System.out.println("2. Register User");
+            System.out.println("3. Issue Book");
+            System.out.println("4. Return Book");
+            System.out.println("5. Show All Books");
+            System.out.println("6. Show All Users");
+            System.out.println("7. Exit");
+            System.out.print("Enter your choice: ");
 
-        // Create users
-        User user1 = new User("Adarsha", 101);
-        User user2 = new User("Siya", 102);
+            int choice = sc.nextInt();
+            sc.nextLine(); // consume leftover newline
 
-        // Add users to library
-        library.addUser(user1);
-        library.addUser(user2);
-
-        // Issue book
-        library.issueBook("Java Basics", 101);
-        library.issueBook("Java Basics", 102); // should show already issued
-
-        // Return book
-        library.returnBook("Java Basics", 101);
-        library.issueBook("Java Basics", 102); // now it should work
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter book title: ");
+                    String bTitle = sc.nextLine();
+                    System.out.print("Enter book author: ");
+                    String bAuthor = sc.nextLine();
+                    library.addBook(new Book(bTitle, bAuthor));
+                    break;
+                case 2:
+                    System.out.print("Enter user name: ");
+                    String uName = sc.nextLine();
+                    library.registerUser(new User(uName));
+                    break;
+                case 3:
+                    System.out.print("Enter book title to issue: ");
+                    String iTitle = sc.nextLine();
+                    System.out.print("Enter user ID: ");
+                    int iUserId = sc.nextInt();
+                    library.issueBook(iTitle, iUserId);
+                    break;
+                case 4:
+                    System.out.print("Enter book title to return: ");
+                    String rTitle = sc.nextLine();
+                    library.returnBook(rTitle);
+                    break;
+                case 5:
+                    library.showAllBooks();
+                    break;
+                case 6:
+                    library.showAllUsers();
+                    break;
+                case 7:
+                    System.out.println("Exiting... Thank you!");
+                    sc.close();
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        }
     }
 }

@@ -11,23 +11,15 @@ public class Book {
         this.isIssued = false;
     }
 
-    public void issue() {
-        isIssued = true;
-    }
+    public String getTitle() { return title; }
+    public String getAuthor() { return author; }
+    public boolean isIssued() { return isIssued; }
 
-    public void returnBook() {
-        isIssued = false;
-    }
+    public void issue() { this.isIssued = true; }
+    public void returnBook() { this.isIssued = false; }
 
-    public boolean isIssued() {
-        return isIssued;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getAuthor() {
-        return author;
+    @Override
+    public String toString() {
+        return title + " by " + author + (isIssued ? " [Issued]" : " [Available]");
     }
 }
